@@ -9,30 +9,50 @@ import java.util.concurrent.Future;
 
 public class Match {
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
-		ExecutorService service = Executors.newFixedThreadPool(3);
 		Runner liuxiang = new Runner();
 		liuxiang.setName("¡ıœË");
-		Future<Integer> result = service.submit(liuxiang);
+		ExecutorService service = Executors.newFixedThreadPool(3);
+		Runner run1 = new Runner();
+		run1.setName("liufei");
+		
+		Future<Integer> result1 = service.submit(liuxiang);
+		Future<Integer> result2 = service.submit(run1);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(liuxiang.getName() + " has run " + result1.get());
+		System.out.println(run1.getName() + " has run " + result2.get());
 		service.shutdown();
-		System.out.println("liuxiang has run " + result.get() + "km");
 	}
+	
 }
 class Runner implements Callable<Integer>{
-	private String name;
-	public String getName() {
-		return name;
-	}
+	private String name ;
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer call() throws Exception {
+	public String getName() {
+		return this.name;
+	}
+
+	public Integer call() {
+		Integer distince = 0;
 		Integer speed = new Random().nextInt(100);
-		int distince = 0;
 		for(int i = 0 ; i < 100 ; i ++) {
-			Thread.sleep(100);
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			distince = i * speed;
 			System.out.println(this.name + " has run about " + distince + " km with " + speed + "km/h");
 		}
 		
 		return distince;
-	}}
+	}
+}
