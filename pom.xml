@@ -6,6 +6,9 @@
   <packaging>pom</packaging>
   <modules>
   	<module>Zachary-concurrency</module>
-  	<module>ZacharyChao-create</module>
   </modules>
+  <properties>
+  	<java.version>1.8</java.version>
+  	<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+  </properties>
 </project>
