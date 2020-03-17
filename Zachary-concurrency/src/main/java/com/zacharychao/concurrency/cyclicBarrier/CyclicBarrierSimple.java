@@ -7,7 +7,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CyclicBarrierSimple {
-	public static CyclicBarrier cyclicBarrier = new CyclicBarrier(4);
+	public static CyclicBarrier cyclicBarrier = new CyclicBarrier(4,() -> {
+		System.out.println(Thread.currentThread().getName() + "*****");
+	}) ;
 	public static void main(String[] args) {
 		ExecutorService threadPool = Executors.newCachedThreadPool();
 		for(int i = 0 ; i < 20 ; i ++) {
@@ -27,10 +29,10 @@ public class CyclicBarrierSimple {
 		threadPool.shutdown();
 	}
 	private static void go() {
-		System.out.println(Thread.currentThread().getName() + "**" + new Date() + " 准备就绪");
+		System.out.println(Thread.currentThread().getName() + "**" + new Date() + "----");
 		try {
 			cyclicBarrier.await();
-			System.out.println(Thread.currentThread().getName() + "**" + new Date() + " 开始运行");
+			System.out.println(Thread.currentThread().getName() + "#####");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
